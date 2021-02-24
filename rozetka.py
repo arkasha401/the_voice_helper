@@ -7,13 +7,15 @@ load_dotenv()
 
 
 class Rozetka:
-    def __init__(self):
+    def __init__(self): #Задаем начальные параметры, если про ООП прочитал, понял че такое методы ООП,
+                        #атрибуты, экземпляры, то проблем возникнуть не должно
         self.dps = {
             'printer': '1',
             'tv': '2'
         }
 
         self.device_manager = tn.OutletDevice(os.getenv('socket_id'), '0.0.0.0', os.getenv('socket_key'))
+        #грубо говоря получили доступ к розетке для работы с ней
         self.device_manager.set_version(3.3)
         
 
@@ -21,14 +23,17 @@ class Rozetka:
         data = self.device_manager.status()
 
         device_statuses = data['dps'] #{'1':'','2':''}
-        
-        if all:
+        if all: #смори, если у нас all станет true, то оно нам вернет все данные о розетке.
+            #а если нет, то нет)
             return device_statuses
 
         return {
             self.dps['printer']: device_statuses[self.dps['printer']],
-            self.dps['tv']: device_statuses[self.dps['tv']],
+            self.dps['tv']: device_statuses[self.dps['tv']],#здесь мы для удобства работы будем использовать
+            #значения из словаря dps. Значение принтера равно 1, а тв 2. Мы просто сможем писать self.dps['tv']
+            # таким образом, чтобы не вспоминать какой номер у розетки или тв 
         }
+
 
     def set_status(self, switch: str, status: bool, *, force: bool = False) -> None:
         if force:
