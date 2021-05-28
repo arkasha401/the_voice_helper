@@ -39,7 +39,7 @@ class Rozetka:
     def set_status(self, switch: str, status: bool, *, force: bool = False) -> None:
         if force:
             self.device_manager.set_status(status, switch=switch)
-            #Если наш force равен True условный толкатель всего, то он выполняет действие независимо от статуса принтера.
+            #Если наш force равен True. Force - условный толкатель всего. Если он равен True то он выполняет действие независимо от статуса принтера.
             return True         
         if status == False and switch == self.dps['printer']:
             if self.get_status()[self.dps['printer']] == True and is_printing(): #прикольная штука - проверяет включен ли принтер, если да,
@@ -47,9 +47,9 @@ class Rozetka:
                 print('get the fuck out of here')
                 return False #интересная штука, после того, как оно отослало сообщение, мы выходим с метода полностью.
         self.device_manager.set_status(status, switch=switch)
-        return True  
+        return True
+
+
 
 a = Rozetka()
 a.set_status(a.dps['printer'], False, force=True)
-
-
